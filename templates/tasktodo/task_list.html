@@ -1,0 +1,82 @@
+{% extends 'layouts/base-presentation.html' %}
+{% load crispy_forms_filters %}
+{% load tz %}
+
+{% block title %} | Tasks {% endblock title %}
+
+{% block content %}
+  <h1>
+    Task list
+    <a href="{% url 'tasktodo:task-create' %}" class="btn btn-primary">
+      Create
+    </a>
+  </h1>
+  <br>
+  <form action="" method="get" class="form-inline">
+    {{ search_form|crispy }}
+    <input type="submit" value="Search" class="btn btn-secondary">
+  </form>
+
+  {% if task_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Deadline</th>
+        <th>Status</th>
+        <th>Priority</th>
+        <th>Type</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+
+      {% for task in task_list %}
+        {% timezone "UTC" %}
+        {% now "Y-m-d" as today %}
+        <tr>
+          <td>
+              {{ task.id }}
+          </td>
+          <td>
+            <a href="{% url 'tasktodo:task-detail' pk=task.id %}">{{ task.name }}</a>
+          </td>
+          <td
+          {% if task.status == True %}
+            class="text"
+          {% elif task.deadline|date:"Y-m-d" == today %}
+          class="bg-warning"
+        {% elif task.deadline|date:"Y-m-d" < today %}
+          class="bg-danger text-white"
+        {% endif %}>
+              {{ task.deadline }}
+          </td>
+          <td>
+              {{ task.get_status_display }}
+          </td>
+          <td>
+              {{ task.get_priority_display }}
+          </td>
+          <td>
+              {{ task.task_type.name }}
+          </td>
+          <td>
+              <a href="{% url 'tasktodo:task-update' pk=task.id %}">
+                Update
+              </a>
+            </td>
+            <td>
+              <a style="color: red"
+                href="{% url 'tasktodo:task-delete' pk=task.id %}">
+                Delete
+              </a>
+            </td>
+        </tr
+        >
+        {% endtimezone %}
+      {% endfor %}
+    </table>
+
+  {% else %}
+      <p>There are no tasks</p>
+  {% endif %}
+{% endblock %}

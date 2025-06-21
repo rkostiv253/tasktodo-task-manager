@@ -1,0 +1,25 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'assets/css/sidebar.css' %}">
+
+<body>
+  <aside class="sidebar">
+    <h2>TaskToDo</h2>
+      {% if user.is_authenticated %}
+        <p>User: {{ user.get_username }}</p>
+      <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+      <button type="submit" class="btn-secondary">Logout</button>
+      </form>
+      {% else %}
+        <li><a href="{% url 'login' %}">🔐 Login</a></li>
+      {% endif %}
+  <ul class="sidebar-nav">
+      <li><a href="{% url 'tasktodo:index' %}">🏠 Home</a></li>
+      <li><a href="{% url 'tasktodo:worker-list' %}">👨‍💼 Workers</a></li>
+      <li><a href="{% url 'tasktodo:position-list' %}">💼 Positions</a></li>
+      <li><a href="{% url 'tasktodo:task-list' %}">📝 Tasks</a></li>
+      <li><a href="{% url 'tasktodo:task-type-list' %}">🗃 Task Types</a></li>
+    </ul>
+  </aside>
+</body>
+</html>
