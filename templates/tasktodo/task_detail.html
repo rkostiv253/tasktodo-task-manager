@@ -1,0 +1,39 @@
+{% extends 'layouts/base-presentation.html' %}
+
+{% block title %} | {{ task.name }} {% endblock title %}
+
+{% block content %}
+  <h1>{{ task.name }}</h1>
+     {% if request.user in task.workers.all %}
+    <form action="{% url 'tasktodo:toggle-task-assign' pk=task.id %}" method="post">
+      {% csrf_token %}
+      <button type="submit" value="Submit" class="btn btn-primary">Delete me from this task</button>
+    </form>
+    {% else %}
+      <form action="{% url 'tasktodo:toggle-task-assign' pk=task.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" value="Submit" class="btn btn-primary">Assign me to this task</button>
+      </form>
+      {% endif %}
+    <br>
+    <h3>Task detail</h3>
+      <a href="{% url 'tasktodo:task-delete' pk=task.id %}" class="btn btn-danger link-to-page">
+          Delete
+        </a>
+        <a href="{% url 'tasktodo:task-update' pk=task.id %}" class="btn btn-secondary link-to-page">
+          Update
+        </a>
+      <hr>
+        <p><strong>Task description: </strong>{{ task.description }}</p>
+        <p><strong>Deadline: </strong>{{ task.deadline }}</p>
+        <p><strong>Status: </strong>{{ task.get_status_display }}</p>
+        <p><strong>Priority: </strong>{{ task.get_priority_display }}</p>
+        <p><strong>Task type: </strong>{{ task.task_type.name }}</p>
+    <h3>Workers</h3>
+      <hr>
+      <ul>
+        {% for worker in task.workers.all %}
+          <li><a href="{% url 'tasktodo:worker-detail' pk=worker.id %}">{{ worker.username }}</a></li>
+        {% endfor %}
+      </ul>
+{% endblock %}

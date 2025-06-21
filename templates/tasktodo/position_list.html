@@ -1,0 +1,54 @@
+{% extends 'layouts/base-presentation.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} | Positions {% endblock title %}
+
+{% block content %}
+  <h1>
+    Positions
+  <a href="{% url 'tasktodo:position-create' %}" class="btn btn-primary">
+      Create
+    </a>
+  </h1>
+  <br>
+  <form action="" method="get" class="form-inline">
+    {{ search_form|crispy }}
+    <input type="submit" value="Search" class="btn btn-secondary">
+  </form>
+
+  {% if position_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+
+      {% for position in position_list %}
+        <tr>
+          <td>
+              {{ position.id }}
+          </td>
+          <td>
+            <a href="{% url 'tasktodo:position-detail' pk=position.id %}">{{ position.name }}</a>
+          </td>
+          <td>
+              <a href="{% url 'tasktodo:position-update' pk=position.id %}">
+                Update
+              </a>
+            </td>
+            <td>
+              <a style="color: red"
+                href="{% url 'tasktodo:position-delete' pk=position.id %}">
+                Delete
+              </a>
+            </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+  {% else %}
+      <p>There are no positions</p>
+  {% endif %}
+{% endblock %}

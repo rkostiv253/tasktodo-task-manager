@@ -1,0 +1,58 @@
+{% extends 'layouts/base-presentation.html' %}
+
+{% block title %} | {{ tasktype.name }} {% endblock title %}
+
+{% block content %}
+  <h1>Tasks related to: {{ tasktype.name }}</h1>
+
+  {% for task in tasktype.tasks.all %}
+   <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Deadline</th>
+        <th>Status</th>
+        <th>Priority</th>
+        <th>Type</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+
+      {% for task in tasktype.tasks.all %}
+        <tr>
+          <td>
+              {{ task.id }}
+          </td>
+          <td>
+            <a href="{% url 'tasktodo:task-detail' pk=task.id %}">{{ task.name }}</a>
+          </td>
+          <td>
+              {{ task.deadline }}
+          </td>
+          <td>
+              {{ task.get_status_display }}
+          </td>
+          <td>
+              {{ task.get_priority_display }}
+          </td>
+          <td>
+              {{ task.task_type.name }}
+          </td>
+          <td>
+              <a href="{% url 'tasktodo:task-update' pk=task.id %}">
+                Update
+              </a>
+            </td>
+            <td>
+              <a style="color: red"
+                href="{% url 'tasktodo:task-delete' pk=task.id %}">
+                Delete
+              </a>
+            </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% empty %}
+    <p>No tasks for this tsk type</p>
+  {% endfor %}
+{% endblock %}
