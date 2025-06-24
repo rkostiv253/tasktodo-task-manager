@@ -1,0 +1,42 @@
+{% extends 'layouts/base-presentation.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} | Workers {% endblock title %}
+
+{% block content %}
+    <h1>
+      Workers list
+      <a href="{% url 'tasktodo:worker-create' %}" class="btn btn-primary">
+        Create
+      </a>
+    </h1>
+    <br>
+    <form action="" method="get" class="form-inline">
+      {{ search_form|crispy }}
+      <input type="submit" value="Search" class="btn btn-secondary">
+    </form>
+
+    {% if worker_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Position</th>
+      </tr>
+    {% for worker in worker_list %}
+      <tr>
+        <td>{{ worker.id }}</td>
+        <td><a href="{% url 'tasktodo:worker-detail' pk=worker.id %}">{{ worker.username }} {% if user == worker %} (Me){% endif %}</a></td>
+        <td>{{ worker.first_name }}</td>
+        <td>{{ worker.last_name }}</td>
+        <td>{{ worker.position }}</td>
+      </tr>
+    {% endfor %}
+
+    </table>
+    {% else %}
+      <p>There are no workers</p>
+    {% endif %}
+{% endblock %}
