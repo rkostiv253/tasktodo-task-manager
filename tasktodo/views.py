@@ -216,15 +216,15 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = "tasktodo/task_confirm_delete.html"
 
 
-@login_required
-def toggle_assign_to_task(request, pk):
-    worker = Worker.objects.get(id=request.user.id)
-    if Task.objects.get(id=pk) in worker.tasks.all():
-        worker.tasks.remove(pk)
-    else:
-        worker.tasks.add(pk)
-    return HttpResponseRedirect(
-        reverse_lazy(
-            "tasktodo:task-detail", args=[pk]
+class ToggleAssignToTaskView(LoginRequiredMixin, generic.UpdateView):
+    def post(self, request, pk):
+        worker = Worker.objects.get(id=request.user.id)
+        if Task.objects.get(id=pk) in worker.tasks.all():
+            worker.tasks.remove(pk)
+        else:
+            worker.tasks.add(pk)
+        return HttpResponseRedirect(
+            reverse_lazy(
+                "tasktodo:task-detail", args=[pk]
+            )
         )
-    )
