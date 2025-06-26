@@ -22,7 +22,7 @@ from tasktodo.views import (
     TaskUpdateView,
     TaskDeleteView,
     PositionDetailView,
-    toggle_assign_to_task,
+    ToggleAssignToTaskView,
 )
 
 urlpatterns = [
@@ -129,7 +129,7 @@ urlpatterns = [
     ),
     path(
         "tasks/<int:pk>/toggle-assign/",
-        toggle_assign_to_task,
+        ToggleAssignToTaskView.as_view(),
         name="toggle-task-assign",
     ),
 ]
