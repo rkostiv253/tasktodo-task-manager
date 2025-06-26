@@ -17,13 +17,13 @@ cffi==1.17.1
 charset-normalizer==3.4.1
 click==8.2.1
 comm==0.2.2
-crispy-bootstrap4==2024.10
+crispy-bootstrap5==2025.6
 debugpy==1.8.11
 decorator==5.1.1
 defusedxml==0.7.1
 dj-database-url==0.5.0
 Django==5.2.3
-django-crispy-forms==1.14.0
+django-crispy-forms==2.4
 django-debug-toolbar==3.2.4
 django-environ==0.8.1
 django-extensions==4.1
