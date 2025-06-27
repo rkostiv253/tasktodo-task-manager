@@ -1,3 +1,10 @@
+# Link to deployed web app
+
+https://tasktodo-task-manager.onrender.com
+
+Login: user
+Password: user12345
+
 # tasktodo-task-manager
 
 This is a simple task manager web app built with Python using Django framework. This app 
