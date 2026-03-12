@@ -1,0 +1,40 @@
+[
+{
+    "model": "tasktodo.worker",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$7vtHehrXITqmgBIRYptejo$M0vda17Wz4dZ3o16Ec+UesP/Uhilz+wsSDPzwVbYRWQ=",
+        "last_login": "2025-06-26T20:10:21.508Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@admin.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-06-26T12:05:27.381Z",
+        "position": null,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "tasktodo.worker",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$mRaJ50iPaYgrUX0DtWulKK$lVzvsfCUvS839URE8m4lnz7dMNI78MO0ZTO1QgCC3O8=",
+        "last_login": "2025-06-26T20:11:02.428Z",
+        "is_superuser": false,
+        "username": "user",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-06-26T20:10:52.722Z",
+        "position": null,
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
